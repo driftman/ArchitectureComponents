@@ -29,10 +29,8 @@ class PostSynchronization(
         override fun apply(t: ArrayList<Post>): Observable<SynchronizationResult> {
             return Observable.create<SynchronizationResult> {
                 e: ObservableEmitter<SynchronizationResult> ->
-                Thread.sleep(1500)
                 e.onNext(SynchronizationResult(SynchronizationService.POST_SERVICE, "Posts successfully fetched from network."))
                 e.onNext(SynchronizationResult(SynchronizationService.POST_SERVICE, "Saving posts in local DB ..."))
-                Thread.sleep(2000)
                 postDAO.create(t)
                 e.onNext(SynchronizationResult(SynchronizationService.POST_SERVICE, "Posts saved in local DB."))
                 e.onComplete()

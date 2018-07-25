@@ -1,13 +1,13 @@
-package com.driftman.fuckingandroid.data.network.api;
+package com.driftman.fuckingandroid.data.network.api
 
 import com.driftman.fuckingandroid.data.entity.User
 import com.driftman.fuckingandroid.data.network.response.NetworkResponse
 import io.reactivex.Observable
 import retrofit2.http.*
-/**
- * Created by abk on 15/07/2018.
- */
 
+/**
+ * Created by abk on 25/07/2018.
+ */
 interface UserAPI {
 
     @GET("/users")

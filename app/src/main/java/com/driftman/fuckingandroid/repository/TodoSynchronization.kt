@@ -28,10 +28,8 @@ class TodoSynchronization(
         override fun apply(t: ArrayList<Todo>): Observable<SynchronizationResult> {
             return Observable.create<SynchronizationResult> {
                 e: ObservableEmitter<SynchronizationResult> ->
-                Thread.sleep(1500)
                 e.onNext(SynchronizationResult(SynchronizationService.TODO_SERVICE, "Todos successfully fetched from network."))
                 e.onNext(SynchronizationResult(SynchronizationService.TODO_SERVICE, "Saving todos in local DB ..."))
-                Thread.sleep(2000)
                 todoDAO.create(t)
                 e.onNext(SynchronizationResult(SynchronizationService.TODO_SERVICE, "Todos saved in local DB."))
                 e.onComplete()

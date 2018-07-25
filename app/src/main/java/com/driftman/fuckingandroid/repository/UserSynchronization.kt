@@ -30,10 +30,8 @@ class UserSynchronization(
         override fun apply(t: ArrayList<User>): Observable<SynchronizationResult> {
             return Observable.create<SynchronizationResult> {
                 e: ObservableEmitter<SynchronizationResult> ->
-                Thread.sleep(1500)
                 e.onNext(SynchronizationResult(SynchronizationService.USER_SERVICE, "Users successfully fetched from network."))
                 e.onNext(SynchronizationResult(SynchronizationService.USER_SERVICE, "Saving users in local DB ..."))
-                Thread.sleep(2000)
                 try {
                     userDAO.create(t)
                     e.onNext(SynchronizationResult(SynchronizationService.USER_SERVICE, "Users saved in local DB."))

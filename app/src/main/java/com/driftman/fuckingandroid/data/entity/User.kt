@@ -11,7 +11,7 @@ import android.databinding.Bindable
  */
 
 @Entity(tableName = "Users")
-data class User(
+class User(
         @PrimaryKey
         @ColumnInfo()
         val id: Int,

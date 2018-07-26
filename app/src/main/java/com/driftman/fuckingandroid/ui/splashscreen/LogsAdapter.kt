@@ -1,4 +1,4 @@
-package com.driftman.fuckingandroid.ui.users
+package com.driftman.fuckingandroid.ui.splashscreen
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater

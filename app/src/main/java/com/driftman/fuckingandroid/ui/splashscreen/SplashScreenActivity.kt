@@ -1,19 +1,15 @@
-package com.driftman.fuckingandroid.ui.users
+package com.driftman.fuckingandroid.ui.splashscreen
 
-import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.Toast
 import com.driftman.fuckingandroid.R
 import com.driftman.fuckingandroid.repository.SynchronizationService
+import com.driftman.fuckingandroid.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.splash_screen.*
 
-class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.IViewSplashScreen {
+class SplashScreenActivity : BaseActivity(), SplashScreenContract.IViewSplashScreen {
 
-    lateinit var llm: LinearLayoutManager;
     lateinit var logsAdapter: LogsAdapter;
     lateinit var  presenter: SplashScreenPresenter<SplashScreenActivity>
     val logs: ArrayList<String> = ArrayList()
@@ -22,9 +18,9 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.IViewSpla
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_screen)
 
-        presenter = SplashScreenPresenter(SynchronizationService(this))
+        presenter = SplashScreenPresenter(this, SynchronizationService(this))
 
-        llm = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val llm = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         logs.add("Fetching users from network ...")
         logs.add("Fetching todos from network ...")
@@ -36,11 +32,11 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.IViewSpla
         logs_recycler_view.adapter = logsAdapter
 
         presenter.onAttach(this)
+        presenter.onViewInitialized()
     }
 
     override fun onStart() {
         super.onStart()
-        presenter.onViewInitialized()
     }
 
     override fun addLogAndScrollToTop(log: String) {
@@ -60,9 +56,7 @@ class SplashScreenActivity : AppCompatActivity(), SplashScreenContract.IViewSpla
         done_image_view.visibility = View.GONE
     }
 
-    override fun context(): Context = applicationContext
-
-    override fun setSyncNb(nb: Long?) {
+    override fun setSyncNb(nb: Int?) {
         sync_nb.text = "Sync: ${nb}"
     }
 

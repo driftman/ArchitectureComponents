@@ -1,15 +1,11 @@
 package com.driftman.fuckingandroid.ui.splashscreen;
 
 import android.content.Context
-import android.util.Log
 import com.driftman.fuckingandroid.repository.SynchronizationService
 import com.driftman.fuckingandroid.ui.base.BasePresenter
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 /**
  * Created by abk on 25/07/2018.
@@ -24,16 +20,10 @@ class SplashScreenPresenter<V: SplashScreenContract.IViewSplashScreen>
     override fun onViewInitialized() {
         super.onViewInitialized()
         v?.initialState()
-        val disposable =
-                Observable.interval(0, 2, TimeUnit.SECONDS)
-                .takeWhile { it < 5 }
-                .subscribe {
-                    it -> sync(it.toInt())
-                }
-        compositeDisposable.add(disposable)
+        sync()
     }
 
-    private fun sync(iteration: Int) {
+    private fun sync() {
         val synchronizationDisposable: Disposable = SynchronizationService(context)
                 .sync()
                 .subscribeOn(Schedulers.io())
@@ -44,7 +34,6 @@ class SplashScreenPresenter<V: SplashScreenContract.IViewSplashScreen>
                         {
                             v?.addLogAndScrollToTop("Synchronization ended successfully.")
                             v?.finishedState()
-                            v?.setSyncNb(iteration + 1)
                         })
 
         compositeDisposable.add(synchronizationDisposable)

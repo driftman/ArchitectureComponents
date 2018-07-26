@@ -10,12 +10,12 @@ import android.widget.Toast
 import com.driftman.fuckingandroid.R
 import com.driftman.fuckingandroid.data.entity.User
 import com.driftman.fuckingandroid.di.Injection
+import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_users.*
 import java.util.concurrent.TimeUnit
 
@@ -44,9 +44,9 @@ class UsersActivity : AppCompatActivity(), UsersContact.IUsersView {
         presenter.onAttach(this)
         presenter.onViewInitialized()
 
-        compositeDisposable.add(getObservableTextWatcher(search_edit_text)
+        compositeDisposable.add(
+                getObservableTextWatcher(search_edit_text).toFlowable(BackpressureStrategy.LATEST)
                 .debounce(300, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     presenter.search(it)
                 })

@@ -14,7 +14,6 @@ class SplashScreenContract {
     }
 
     interface IViewSplashScreen : BaseContract.IBaseView {
-        fun setSyncNb(nb: Int?)
         fun addLogAndScrollToTop(log: String)
         fun finishedState()
         fun initialState()

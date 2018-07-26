@@ -26,20 +26,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/sync_nb"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:textColor="#000"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:text="Sync : 0"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-    <TextView
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"

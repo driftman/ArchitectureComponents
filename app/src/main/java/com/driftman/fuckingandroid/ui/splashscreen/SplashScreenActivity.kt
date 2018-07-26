@@ -1,12 +1,18 @@
 package com.driftman.fuckingandroid.ui.splashscreen
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.driftman.fuckingandroid.R
 import com.driftman.fuckingandroid.repository.SynchronizationService
 import com.driftman.fuckingandroid.ui.base.BaseActivity
+import com.driftman.fuckingandroid.ui.users.UsersActivity
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.splash_screen.*
+import java.util.concurrent.TimeUnit
 
 class SplashScreenActivity : BaseActivity(), SplashScreenContract.IViewSplashScreen {
 
@@ -48,16 +54,22 @@ class SplashScreenActivity : BaseActivity(), SplashScreenContract.IViewSplashScr
         loading_message_text_view.text = "DONE"
         progress_bar.visibility = View.GONE
         done_image_view.visibility = View.VISIBLE
+
+        Observable.interval(5, TimeUnit.SECONDS)
+                .subscribeOn(Schedulers.io())
+                .firstElement()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    val intent: Intent = Intent(this, UsersActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
     }
 
     override fun initialState() {
         loading_message_text_view.text = "Loading ..."
         progress_bar.visibility = View.VISIBLE
         done_image_view.visibility = View.GONE
-    }
-
-    override fun setSyncNb(nb: Int?) {
-        sync_nb.text = "Sync: ${nb}"
     }
 
     override fun onDestroy() {

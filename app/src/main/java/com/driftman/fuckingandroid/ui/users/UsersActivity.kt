@@ -14,7 +14,6 @@ import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_users.*
 import java.util.concurrent.TimeUnit
@@ -48,7 +47,8 @@ class UsersActivity : AppCompatActivity(), UsersContact.IUsersView {
                 getObservableTextWatcher(search_edit_text).toFlowable(BackpressureStrategy.LATEST)
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .subscribe {
-                    presenter.search(it)
+                    //presenter.search(it)
+                    com.crashlytics.android.Crashlytics.getInstance().crash()
                 })
     }
 

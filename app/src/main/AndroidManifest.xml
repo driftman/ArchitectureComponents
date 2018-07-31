@@ -19,6 +19,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.users.UsersActivity"></activity>
+
+        <!-- Services -->
+        <service android:name=".customlog.BSCCLogService">
+            <meta-data android:name="url" android:value="http://api.log.bscc.com"/>
+            <meta-data android:name="method" android:value="post"/>
+            <meta-data android:name="worker_interval_ms" android:value="5000"/>
+        </service>
     </application>
 
 </manifest>

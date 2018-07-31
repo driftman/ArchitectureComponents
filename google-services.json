@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "704097859394",
+    "firebase_url": "https://atoslab-6b6cf.firebaseio.com",
+    "project_id": "atoslab-6b6cf",
+    "storage_bucket": "atoslab-6b6cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704097859394:android:2c8440b267443dfa",
+        "android_client_info": {
+          "package_name": "com.driftman.fuckingandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704097859394-5cf1lbkpcglpnnqdajhflhm2qn9e2vmi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.driftman.fuckingandroid",
+            "certificate_hash": "c14b1a58786920147d3e5ebf423b0acd1baa6360"
+          }
+        },
+        {
+          "client_id": "704097859394-ie94dcdk09423eaqpttnjo47tsua8h4l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7-DTEqTyuyAfgBIetpf0PfU2tr1ZybDc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "704097859394-ie94dcdk09423eaqpttnjo47tsua8h4l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

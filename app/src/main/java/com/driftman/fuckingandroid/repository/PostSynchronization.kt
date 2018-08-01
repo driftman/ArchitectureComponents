@@ -34,7 +34,7 @@ class PostSynchronization(
                 postDAO.create(t)
                 e.onNext(SynchronizationResult(SynchronizationService.POST_SERVICE, "Posts saved in local DB."))
                 e.onComplete()
-            }.subscribeOn(Schedulers.io())
+            }
         }
     }
 

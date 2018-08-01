@@ -9,8 +9,6 @@ import com.driftman.fuckingandroid.data.network.service.TodoService
 import com.driftman.fuckingandroid.data.network.service.UserService
 import com.driftman.fuckingandroid.di.Injection
 import io.reactivex.Observable
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by abk on 16/07/2018.
@@ -18,13 +16,13 @@ import io.reactivex.schedulers.Schedulers
 
 class SynchronizationService(val context: Context): ISynchronization {
 
-    val userService: UserService = Injection.provideUserService()
-    val todoService: TodoService = Injection.provideTodoService()
-    val postService: PostService = Injection.providePostService()
+    val userService: UserService = Injection().provideUserService()
+    val todoService: TodoService = Injection().provideTodoService()
+    val postService: PostService = Injection().providePostService()
 
-    val userDAO: UserDAO = Injection.provideUserDAO(context)
-    val todoDAO: TodoDAO = Injection.provideTodoDAO(context)
-    val postDAO: PostDAO = Injection.providePostDAO(context)
+    val userDAO: UserDAO = Injection().provideUserDAO(context)
+    val todoDAO: TodoDAO = Injection().provideTodoDAO(context)
+    val postDAO: PostDAO = Injection().providePostDAO(context)
 
     val userSynchronization: ISynchronization = UserSynchronization(userService, userDAO)
     val todoSynchronization: ISynchronization = TodoSynchronization(todoService, todoDAO)

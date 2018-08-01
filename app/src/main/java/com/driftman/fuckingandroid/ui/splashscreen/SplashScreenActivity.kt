@@ -5,24 +5,33 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.driftman.fuckingandroid.R
+import com.driftman.fuckingandroid.log.CustomLog
 import com.driftman.fuckingandroid.repository.SynchronizationService
 import com.driftman.fuckingandroid.ui.base.BaseActivity
 import com.driftman.fuckingandroid.ui.users.UsersActivity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_users.*
 import kotlinx.android.synthetic.main.splash_screen.*
 import java.util.concurrent.TimeUnit
 
 class SplashScreenActivity : BaseActivity(), SplashScreenContract.IViewSplashScreen {
 
     lateinit var logsAdapter: LogsAdapter;
-    lateinit var  presenter: SplashScreenPresenter<SplashScreenActivity>
+    lateinit var presenter: SplashScreenPresenter<SplashScreenActivity>
+    lateinit var customLog: CustomLog
+
     val logs: ArrayList<String> = ArrayList()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_screen)
+
+        customLog = CustomLog(this, "SplashScreenActivity")
+        customLog.d("onCreate()")
 
         presenter = SplashScreenPresenter(this, SynchronizationService(this))
 
@@ -51,6 +60,7 @@ class SplashScreenActivity : BaseActivity(), SplashScreenContract.IViewSplashScr
     }
 
     override fun finishedState() {
+
         loading_message_text_view.text = "DONE"
         progress_bar.visibility = View.GONE
         done_image_view.visibility = View.VISIBLE
@@ -60,10 +70,13 @@ class SplashScreenActivity : BaseActivity(), SplashScreenContract.IViewSplashScr
                 .firstElement()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
+                    customLog.i("All data successfully downloaded.")
+                    customLog.i("Launching the UsersActivity.")
                     val intent: Intent = Intent(this, UsersActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
+
     }
 
     override fun initialState() {

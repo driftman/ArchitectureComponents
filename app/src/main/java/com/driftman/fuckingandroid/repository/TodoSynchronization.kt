@@ -33,7 +33,7 @@ class TodoSynchronization(
                 todoDAO.create(t)
                 e.onNext(SynchronizationResult(SynchronizationService.TODO_SERVICE, "Todos saved in local DB."))
                 e.onComplete()
-            }.subscribeOn(Schedulers.io())
+            }
         }
     }
 }

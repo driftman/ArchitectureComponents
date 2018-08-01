@@ -1,6 +1,5 @@
 package com.driftman.fuckingandroid.repository
 
-import android.util.Log
 import com.driftman.fuckingandroid.data.db.dao.UserDAO
 import com.driftman.fuckingandroid.data.entity.User
 import com.driftman.fuckingandroid.data.network.service.UserService
@@ -19,7 +18,8 @@ class UserSynchronization(
 
 
     override fun sync(): Observable<SynchronizationResult> {
-        return userService.get()
+        return userService
+                .get()
                 .subscribeOn(Schedulers.io())
                 .flatMap(SaveToLocalDB(userDAO))
     }
@@ -40,7 +40,7 @@ class UserSynchronization(
                 } finally {
                     e.onComplete()
                 }
-            }.observeOn(Schedulers.io())
+            }
         }
     }
 }

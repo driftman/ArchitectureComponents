@@ -8,7 +8,8 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by abk on 26/07/2018.
  */
-class UsersPresenter<V: UsersContact.IUsersView>(var userDAO: UserDAO): BasePresenter<V>(), UsersContact.IUsersPresenter<V> {
+class UsersPresenter<V: UsersContact.IUsersView>(var userDAO: UserDAO): BasePresenter<V>(),
+        UsersContact.IUsersPresenter<V> {
 
     override fun search(value: String?) {
         compositeDisposable.add(

@@ -5,16 +5,17 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import com.driftman.fuckingandroid.R
 import com.driftman.fuckingandroid.data.entity.User
 import com.driftman.fuckingandroid.di.Injection
+import com.driftman.fuckingandroid.log.CustomLog
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_users.*
 import java.util.concurrent.TimeUnit
@@ -25,10 +26,13 @@ class UsersActivity : AppCompatActivity(), UsersContact.IUsersView {
 
     lateinit var presenter: UsersPresenter<UsersActivity>
     lateinit var adapter: UsersAdapter
+    lateinit var customLog: CustomLog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_users)
+
+        customLog = CustomLog(this, "UsersActivity")
 
         adapter = UsersAdapter(
                 {
@@ -40,7 +44,14 @@ class UsersActivity : AppCompatActivity(), UsersContact.IUsersView {
         users_recyclerview.layoutManager = llm
         users_recyclerview.adapter = adapter
 
-        presenter = UsersPresenter(Injection.provideUserDAO(this))
+        icon_search.setOnClickListener(object: View.OnClickListener {
+            override fun onClick(p0: View?) {
+                val result = 1 / 0
+            }
+
+        });
+
+        presenter = UsersPresenter(Injection().provideUserDAO(this))
         presenter.onAttach(this)
         presenter.onViewInitialized()
 
@@ -48,11 +59,14 @@ class UsersActivity : AppCompatActivity(), UsersContact.IUsersView {
                 getObservableTextWatcher(search_edit_text).toFlowable(BackpressureStrategy.LATEST)
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .subscribe {
+                    if(it != null && it.length > 0)
+                        customLog.i("Searching for ${it}")
                     presenter.search(it)
                 })
     }
 
     override fun updateUsers(users: List<User>) {
+        customLog.i("Displaying the searched users.")
         adapter.updateUsers(users)
     }
 

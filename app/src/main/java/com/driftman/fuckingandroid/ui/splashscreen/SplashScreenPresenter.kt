@@ -29,8 +29,12 @@ class SplashScreenPresenter<V: SplashScreenContract.IViewSplashScreen>
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { v?.addLogAndScrollToTop(it.status) },
-                        { it -> println("Error: ${it.message}")},
+                        {
+                            v?.addLogAndScrollToTop(it.status)
+                        },
+                        {
+                            it -> println("Error: ${it.message}")
+                        },
                         {
                             v?.addLogAndScrollToTop("Synchronization ended successfully.")
                             v?.finishedState()

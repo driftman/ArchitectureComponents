@@ -31,6 +31,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     // Support libraries
     implementation deps.support.app_compat
     implementation deps.support.v4
@@ -58,4 +59,16 @@ dependencies {
     implementation deps.retrofit.gson
     implementation deps.retrofit.rx_adapter
 
+    // Firebase
+    implementation 'com.google.firebase:firebase-core:16.0.0'
+
+    // Crashlytics
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.3'
+
+
 }
+
+// Google services
+apply plugin: 'com.google.gms.google-services'
+// Crashlytics
+apply plugin: 'io.fabric'

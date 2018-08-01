@@ -47,7 +47,7 @@ class SplashScreenActivity : BaseActivity(), SplashScreenContract.IViewSplashScr
         logs_recycler_view.adapter = logsAdapter
 
         presenter.onAttach(this)
-        presenter.onViewInitialized()
+        // presenter.onViewInitialized()
     }
 
     override fun onStart() {
